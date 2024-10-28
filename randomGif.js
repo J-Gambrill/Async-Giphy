@@ -2,6 +2,14 @@ require('dotenv').config({ path: 'api.env'});
 
 const endpoint = 'https://api.giphy.com/v1/gifs/search'
 
+function getRandomIntInclusive(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); // The maximum is inclusive and the minimum is inclusive
+  }
+ranNum = getRandomIntInclusive(0, 25)
+
+
 async function getImage(query){
     const url = `${endpoint}?api_key=${process.env.API_key}&q=${encodeURIComponent(query)}&limit=25&offset=0&rating=r&lang=en&bundle=messaging_non_clips`
     
@@ -19,7 +27,7 @@ async function getImage(query){
 
         if (data.data.length > 0) {
 
-            const gifUrl = data.data[0].images.original.url
+            const gifUrl = data.data[ranNum].images.original.url
             console.log(gifUrl)
             return gifUrl
 
